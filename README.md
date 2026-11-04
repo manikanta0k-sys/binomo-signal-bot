@@ -1,18 +1,10 @@
-# Chart Signal Lab V7 — External Binance BTC/USDT Live Data
+# Chart Signal Lab V8 — Binomo screenshot-only estimates
 
-## Install on GitHub Pages
-Upload **all six files** from this ZIP to the root of your existing repository, replacing same-named files: `index.html`, `style.css`, `app.js`, `strategy-v6.js`, `timing-v6-1.js`, `live-v7.js`. Commit changes and reload with `?v=7`.
+Upload a Binomo screenshot, select chart candles, detect and review at least 35 candles, enter the screenshot **actual capture time**, then click **Analyze Reviewed Candles**. V8 displays two upcoming 1-minute candle windows (e.g. 4:47 and 4:48 after a 4:46 capture), with UP/DOWN directional scores and WAIT without percentages. The second minute is suppressed unless the indicator score is strong.
 
-## Live connection
-Click **Connect live feed**. The app fetches up to 160 Binance BTCUSDT 1-minute candles from `https://data-api.binance.vision/api/v3/klines` and then receives updates from `wss://data-stream.binance.vision:443/ws/btcusdt@kline_1m`. No credentials, proxy, backend, Chrome extension, or account connection required. Browser must support HTTPS, fetch, and WebSockets; provider connectivity can be region- or network-dependent.
+**Important:** The UP/DOWN percentages are uncalibrated heuristic scores, **not actual measured probabilities**. They are not verified predictions, cannot determine future price movements, and should not be used as assured trading signals. Screenshot-derived OHLC values are approximate. Older screenshots (>60 seconds) produce WAIT.
 
-Only **closed** candles are analyzed. Data is not from Binomo and must **not** be used as a substitute for Binomo, Crypto IDX, or OTC asset quotes. UP/DOWN/WAIT are heuristic condition labels, not reliable forecasts or trade recommendations. The program does not place trades. When the stream is disconnected/stale, live result becomes WAIT. The PDF strategy checker can use live closed Binance candles when its checkbox is checked. Color Ribbons / DRT remains unsupported for Binance because it is specific to Binomo's Crypto IDX mode.
+The V6 PDF strategy checker remains available, along with manual candle review, RSI, MACD, fractals, screenshot freshness, and history. The always-on clock and Binance live feed are removed. Some Binomo-only indicators (e.g. DRT) cannot be reliably inferred from OHLC pixels.
 
-## V6.1 features preserved
-Screenshot upload and region selection, candle review/edit, RSI/MACD/fractals, history export, 1-minute clock and countdown, expiry selector, screenshot capture age, and all four PDF strategy checks.
-
-## Limitations
-- The separate V6.1 device-clock countdown is not synchronized to Binomo. The live panel uses Binance candle timestamps but relies on the device clock for its countdown.
-- Network failures, geographical restrictions, provider outages, and delayed data can prevent a connection. A live browser/network integration test was not possible in this build environment.
-- The legacy screenshot analysis and the new live analysis are separate; live candles do not overwrite screenshot review rows or history.
-- This is educational market-data analysis, not financial advice.
+## GitHub Pages
+Upload these 5 files to the repository root, replacing existing versions: index.html, style.css, app.js, strategy-v6.js, prediction-v8.js. Remove old live-v7.js if desired. Commit and refresh the GitHub Pages site with ?v=8.

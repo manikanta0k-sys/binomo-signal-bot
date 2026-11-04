@@ -20,3 +20,6 @@
 #liveChart{height:auto;max-height:330px}
 #liveStatus{color:#a5e4d8}
 #livePrice{font-size:clamp(18px,3vw,24px)}
+
+/* V8 screenshot-only UI */
+.legacy-timer{display:none}.v8-panel{border-color:#4a668b}.prediction-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:15px}.prediction-card{padding:18px;background:#0c1728;border:1px solid #3b4c65;border-radius:12px}.prediction-card h3{font-size:16px;margin:0 0 12px}.prediction-card>strong{font-size:28px}.prediction-card.up>strong{color:#4ade80}.prediction-card.down>strong{color:#fb7185}.prediction-card.wait>strong{color:#facc15}.pred-line{display:flex;justify-content:space-between;margin:13px 0 5px}.pred-track{height:10px;border-radius:10px;overflow:hidden;background:#243348}.pred-fill{height:100%;width:0;transition:width .2s}.up-fill{background:#4ade80}.down-fill{background:#fb7185}.prediction-card p{color:#afc0d2;line-height:1.5}.v8-panel .important{margin:0 0 14px}
