@@ -1,28 +1,22 @@
-# Chart Signal Lab V6
+# Chart Signal Lab V6.1 — Timing Repair
 
-A browser-only educational screenshot-candle analysis app, built on V5. No Binomo account connection or automatic trading.
+This version builds on the actual V6 files, preserving its screenshot candle detection and four PDF-based strategy checks. It adds an **always-visible live timing dashboard at the top of the page**, powered by a separate `timing-v6-1.js` file. It also repairs the V6 strategy script’s access to reviewed candles.
 
-## Install on GitHub Pages
-Upload **all four** files to the repository root, replacing old files where applicable:
-- index.html
-- style.css
-- app.js
-- strategy-v6.js (NEW)
+## Installation
+Upload **all five** files to the root of your existing GitHub Pages repository, replacing the old files:
+- `index.html`
+- `style.css`
+- `app.js`
+- `strategy-v6.js`
+- `timing-v6-1.js` (new)
 
-Commit, wait for GitHub Pages, then hard refresh. `index.html` loads both JS files in order.
+Commit, wait for deployment, then hard-refresh. The dashboard should show the device local time and countdown immediately, even before uploading an image. The existing Timeframe & signal freshness section remains further down the page.
 
-## Workflow
-1. Upload screenshot, select candle area, Detect Candles.
-2. Review and correct OHLC rows. Screenshot-derived OHLC is pixel-scale approximation, not real market price.
-3. Set chart timeframe (default 1 minute), trade expiry separately, and capture timestamp.
-4. Choose one PDF strategy and click **Check Strategy Conditions**. For Color Ribbons enter support/resistance in the SAME units as the candle table. If your table contains pixel-based values, real market levels will not be comparable; edit candles to real OHLC first.
-5. Read diagnostic evidence, not as trading instructions.
+## Timing definitions
+- **Current local time**: your device clock and device time zone.
+- **Candle start/end and countdown**: mathematical boundaries aligned to the selected chart interval (default 60 seconds). This is not a synchronized Binomo candle feed.
+- **Trade expiry**: a hypothetical end time if started now, based on the separate duration selector. No trade is placed.
+- **Screenshot freshness**: age since the *manually entered* capture time. The bot does not infer actual screenshot capture time.
+- **Signal freshness**: elapsed time since the latest successful analysis in this browser session. This is not a verified market signal.
 
-## Rules implemented from PDFs
-- **PSAR + Bollinger**: Bollinger period 20, 2 standard deviations; PSAR acceleration 0.02 to 0.2; checks SAR position and Bollinger midline cross on last candle. PDF recommends 1–2-minute charts, expiry under 5 minutes.
-- **Awesome + RSI**: Awesome Oscillator 5 and 34 SMA of median (high+low)/2; RSI 14 crossing 50 with AO zero-line crossing in same last candle. PDF recommends 15-second charts, 1-minute expiry; 1-minute chart with 4–5-minute expiry is mentioned as an alternative.
-- **Heikin Ashi**: computes HA OHLC from reviewed candles, assesses bullish/bearish color and body/shadow size. PDF asks for Heikin Ashi chart and strong-body / small-shadow confirmation. The implementation uses an explicit heuristic for candle strength, NOT a parameter from the PDF.
-- **Color Ribbons / DRT**: PDF applies to Crypto IDX Dynamic Range Trading, 1-minute chart and expiry, support/resistance and multiple bounces; checks entered levels and proximity counts. The 8% touch tolerance and 40% sharp-move threshold are app heuristics, NOT values given by the PDF. DRT outcome colors and profitability cannot be inferred from screenshots.
-
-## Important limitations
-These PDFs are educational and explicitly disclaim guaranteed results. Screenshot-based OHLC estimates are not trustworthy for real-money trading. Strategy matches are not probabilities, next-candle predictions, or trade-entry instructions. Time display is based on your device clock and manually entered screenshot time, not synchronized to Binomo. The app does not execute trades.
+These features do not identify a profitable trade time, and screenshot-derived OHLC and indicator readings remain approximate. No automated trading or Binomo account connection.

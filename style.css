@@ -3,3 +3,12 @@
 .timing-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:14px;margin:14px 0}.timing-grid label{display:flex;flex-direction:column;gap:7px;font-weight:600}.timing-grid select,.timing-grid input{width:100%;box-sizing:border-box;background:#101c30;color:#f0f5ff;border:1px solid #41546c;border-radius:9px;padding:10px;font:inherit}.timing-grid .actions{align-self:end}.timing-note{padding:10px 12px;border-radius:9px;background:#18263b;color:#e5ecf8}.timing-note.stale{background:#493022;color:#ffe0b5}.timing-note.fresh{background:#193e36;color:#c4f8e2}
 
 .strategy-result{padding:16px;margin-top:16px;border:1px solid #42536d;border-radius:12px;background:#101a2c}.strategy-result.up{border-color:#287a59}.strategy-result.down{border-color:#a65059}.strategy-result strong{font-size:1.15rem}.strategy-result p{line-height:1.6;white-space:pre-wrap}#rangeInputs{display:flex;gap:12px;flex-wrap:wrap}#rangeInputs[hidden]{display:none}#rangeInputs label{flex:1;min-width:160px}#rangeInputs input{width:100%;box-sizing:border-box;padding:10px;margin-top:6px;background:#0c1424;color:#f4f7ff;border:1px solid #42536d;border-radius:8px}
+
+/* V6.1 always-visible timing dashboard */
+.clock-panel{border-color:#3c6f83;background:linear-gradient(135deg,#142a40,#152038)}
+.clock-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(195px,1fr));gap:12px}
+.clock-grid>div{background:#091728;border:1px solid #31506a;border-radius:12px;padding:15px;min-width:0}
+.clock-grid small{display:block;color:#9cb3c9;font-size:12px;line-height:1.5}
+.clock-grid strong{display:block;color:#fff;font-size:clamp(20px,3vw,28px);font-variant-numeric:tabular-nums;margin:8px 0;overflow-wrap:anywhere}
+#liveCountdown{color:#5fe5c7}
+#timingHealth{margin:12px 0 0}

@@ -20,7 +20,7 @@ function check(){
  el('strategySettings').textContent='';
  const configs={psar:'Bollinger 20 / deviation 2; PSAR AF 0.02–0.2; PDF chart 1–2 min, expiry under 5 min.',ao:'Awesome Oscillator SMA 5 / 34 (median prices); RSI period 14, 50 crossing; PDF chart 15 sec / expiry 1 min; also mentions chart 1 min / expiry 4–5 min.',ha:'Heikin Ashi chart: blue/up candle versus red/down candle; large bodies and small shadows suggest stronger trend. No fixed expiry specified.',range:'Color Ribbons is a DRT range strategy for Crypto IDX. PDF specifies automatic 1-minute timeframe and expiry; needs support/resistance and repeated bounces.'};
  el('strategySettings').textContent=configs[selected];
- const cs=candles.map(c=>({open:+c.open,high:+c.high,low:+c.low,close:+c.close}));
+ const cs=(window.chartSignalGetCandles?.() || []).map(c=>({open:+c.open,high:+c.high,low:+c.low,close:+c.close}));
  if(!cs.length){result('WAIT — no candles','Upload a chart, detect candles, and review their OHLC values first.');return}
  if(cs.some(c=>!Object.values(c).every(Number.isFinite)||c.high<Math.max(c.open,c.close)||c.low>Math.min(c.open,c.close)||c.low>c.high)){result('WAIT — invalid OHLC','Correct the highlighted candle table values before checking a strategy.');return}
  const tf=num('chartTimeframe'),expiry=num('tradeExpiry');
