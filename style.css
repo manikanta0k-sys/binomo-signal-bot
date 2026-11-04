@@ -12,3 +12,11 @@
 .clock-grid strong{display:block;color:#fff;font-size:clamp(20px,3vw,28px);font-variant-numeric:tabular-nums;margin:8px 0;overflow-wrap:anywhere}
 #liveCountdown{color:#5fe5c7}
 #timingHealth{margin:12px 0 0}
+/* V7 separate market-data panel */
+.live-panel{border-color:#286d7d;background:linear-gradient(140deg,#12283c,#151f31)}
+.important{background:#49331f;color:#ffe3b2;padding:14px;border:1px solid #a47a39;border-radius:10px;line-height:1.5}
+.live-switch{display:flex;align-items:center;gap:9px;padding:8px 0;color:#cfe6f4}
+.live-switch input{width:19px;height:19px}
+#liveChart{height:auto;max-height:330px}
+#liveStatus{color:#a5e4d8}
+#livePrice{font-size:clamp(18px,3vw,24px)}

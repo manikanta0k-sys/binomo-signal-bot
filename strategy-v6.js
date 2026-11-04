@@ -20,11 +20,14 @@ function check(){
  el('strategySettings').textContent='';
  const configs={psar:'Bollinger 20 / deviation 2; PSAR AF 0.02–0.2; PDF chart 1–2 min, expiry under 5 min.',ao:'Awesome Oscillator SMA 5 / 34 (median prices); RSI period 14, 50 crossing; PDF chart 15 sec / expiry 1 min; also mentions chart 1 min / expiry 4–5 min.',ha:'Heikin Ashi chart: blue/up candle versus red/down candle; large bodies and small shadows suggest stronger trend. No fixed expiry specified.',range:'Color Ribbons is a DRT range strategy for Crypto IDX. PDF specifies automatic 1-minute timeframe and expiry; needs support/resistance and repeated bounces.'};
  el('strategySettings').textContent=configs[selected];
- const cs=(window.chartSignalGetCandles?.() || []).map(c=>({open:+c.open,high:+c.high,low:+c.low,close:+c.close}));
+ const liveMode=!!el('useLiveForStrategy')?.checked;
+ if(liveMode && selected==='range'){result('WAIT — unsupported external source','Color Ribbons / DRT is specific to Binomo Crypto IDX. Binance BTC/USDT cannot verify DRT range colors or expiry. Disable live mode to review your screenshot manually.');return;}
+ if(liveMode && !window.chartSignalLiveReady?.()){result('WAIT — live data unavailable','Connect Binance BTC/USDT and wait for fresh closed candles. No fallback to screenshot data while live mode is selected.');return;}
+ const cs=((liveMode?window.chartSignalLiveCandles?.():window.chartSignalGetCandles?.()) || []).map(c=>({open:+c.open,high:+c.high,low:+c.low,close:+c.close}));
  if(!cs.length){result('WAIT — no candles','Upload a chart, detect candles, and review their OHLC values first.');return}
  if(cs.some(c=>!Object.values(c).every(Number.isFinite)||c.high<Math.max(c.open,c.close)||c.low>Math.min(c.open,c.close)||c.low>c.high)){result('WAIT — invalid OHLC','Correct the highlighted candle table values before checking a strategy.');return}
  const tf=num('chartTimeframe'),expiry=num('tradeExpiry');
- const note=' Screenshot-derived OHLC is approximate; this is not a live entry signal.';
+ const note=liveMode?' Source: Binance BTC/USDT spot CLOSED candles, not Binomo. This is not a live trade-entry signal.':' Screenshot-derived OHLC is approximate; this is not a live entry signal.';
  if(selected==='psar'){
   if(cs.length<22){result('WAIT — insufficient candles','PSAR + Bollinger requires at least 22 reviewed candles.'+note);return}
   const bands=bb(cs,20,2),sar=psar(cs,.02,.2),i=cs.length-1,prev=cs[i-1],curr=cs[i],midPrev=bands[i-1]?.mid,mid=bands[i].mid;
@@ -53,6 +56,7 @@ function check(){
   const verdict=inRange&&nearSupport>=2&&nearResistance>=2&&!sharp?'Range conditions present — direction unverified':'WAIT — range conditions incomplete';
   result(verdict,`Support touches ~${nearSupport}, resistance touches ~${nearResistance}; last close inside range: ${inRange?'yes':'no'}; sharp last move: ${sharp?'yes':'no'}. PDF: DRT on Crypto IDX, automatic 1-minute timeframe/expiry. Range colors and actual DRT outcome cannot be verified from OHLC alone.${note}`);
  }
+ if(liveMode){el('strategyFreshness').textContent='Binance external feed: '+(window.chartSignalLiveFreshness?.()||'unverified')+'; not a Binomo signal.';return;}
  const cap=el('captureTime').value;
  if(!cap){el('strategyFreshness').textContent='Capture time missing: strategy match is NOT verified as current.'}
  else{const age=(Date.now()-new Date(cap).getTime())/1000;el('strategyFreshness').textContent=!Number.isFinite(age)||age<0||age>tf?`Screenshot stale or invalid (${Math.round(age)} seconds old). Do not treat this as current.`:`Screenshot entered ${Math.round(age)} seconds ago. Timestamp is user-provided, not verified by Binomo.`}
